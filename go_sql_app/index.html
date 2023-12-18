@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <table>
+        <tr>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>age</th>
+            <th>address</th>
+        </tr>
+        {{ range .People}}
+        <tr>
+            <td>{{ .firstname }}</td>
+            <td>{{ .lastname }}</td>
+            <td>{{ .age }}</td>
+            <td>{{ .address }}</td>
+        </tr>
+        {{ end}}
+    </table>
+</body>
+
+</html>
