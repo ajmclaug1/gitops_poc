@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/devtest/web-app/*" "envs/devtest/web-app/" > diff.txt
+          diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/" > diff.txt
           if [ $? -eq 1 ]
           then
               echo "Folders are different"
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/staging/web-app/*" "envs/staging/web-app/" > diff.txt
+          diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/" > diff.txt
           if [ $? -eq 1 ]
           then
               echo "Folders are different"
@@ -92,7 +92,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/production/web-app/*" "envs/production/web-app/" > diff.txt
+          diff -r "envs-pending/production/web-app/" "envs/production/web-app/" > diff.txt
           if [ $? -eq 1 ]
           then
               echo "Folders are different"
