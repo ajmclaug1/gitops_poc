@@ -29,7 +29,7 @@ jobs:
     if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # - name: Compare two folders
       #   run: |
       #     diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # - name: Compare two folders
       #   run: |
       #     diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/"
@@ -71,7 +71,7 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # - name: Compare two folders
       #   run: |
       #     diff -r "envs-pending/production/web-app/" "envs/production/web-app/"
