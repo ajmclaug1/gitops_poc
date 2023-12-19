@@ -1,0 +1,76 @@
+# Promote a GitOps application from one environment to the next
+
+name: Promote application
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      source_env:
+        description: "Environment to release changes"
+        required: true
+        default: "devtest"
+        type: choice
+        options:
+          - devtest
+          - staging
+          - production
+      messsage:
+        description: "Commit message"
+        required: true
+        type: string
+        default: "Application promotion"
+
+jobs:
+  promote-devtest:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Copy folder across
+        shell: bash
+        run: |
+          mv "envs-pending/devtest/web-app/* "envs/devtest/web-app/
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ inputs.messsage }}
+
+  promote-staging:
+    environment:
+      name: staging
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Copy folder across
+        shell: bash
+        run: |
+          mv "envs-pending/staging/web-app/* "envs/staging/web-app/
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ inputs.messsage }}
+
+  promote-production:
+    environment:
+      name: staging
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Copy folder across
+        shell: bash
+        run: |
+          mv "envs-pending/production/web-app/* "envs/production/web-app/
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ inputs.messsage }}
