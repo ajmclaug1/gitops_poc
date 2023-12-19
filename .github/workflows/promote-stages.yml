@@ -7,7 +7,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      source_env:
+      env:
         description: "Environment to release changes"
         required: true
         default: "devtest"
@@ -30,8 +30,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
       - name: Copy folder across
+        if: ${{ inputs.env }} == "devtest"
         shell: bash
         run: |
           mv "envs-pending/devtest/web-app/* "envs/devtest/web-app/
@@ -44,16 +44,16 @@ jobs:
       name: staging
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
       - name: Copy folder across
+        if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/staging/web-app/* "envs/staging/web-app/
       - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         with:
           commit_message: ${{ inputs.messsage }}
 
@@ -66,11 +66,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
       - name: Copy folder across
+        if: ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/production/web-app/* "envs/production/web-app/
       - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ inputs.env }} == "production"
         with:
           commit_message: ${{ inputs.messsage }}
