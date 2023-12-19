@@ -26,24 +26,14 @@ jobs:
   promote-devtest:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/" > diff.txt
-          if [ $? -eq 1 ]
-          then
-              echo "Folders are different"
-              cat diff.txt
-              exit 1
-          else
-              echo "Folders are same"
-              exit 0
-          fi
+          diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
       - name: Copy folder across
-        if: ${{ inputs.env }} == "devtest" || ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/devtest/web-app/*" "envs/devtest/web-app/"
@@ -52,6 +42,7 @@ jobs:
           commit_message: ${{ inputs.messsage }}
 
   promote-staging:
+    if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     environment:
       name: staging
     # The type of runner that the job will run on
@@ -61,18 +52,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/" > diff.txt
-          if [ $? -eq 1 ]
-          then
-              echo "Folders are different"
-              cat diff.txt
-              exit 1
-          else
-              echo "Folders are same"
-              exit 0
-          fi
+          diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/"
       - name: Copy folder across
-        if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/staging/web-app/*" "envs/staging/web-app/"
@@ -82,6 +63,7 @@ jobs:
           commit_message: ${{ inputs.messsage }}
 
   promote-production:
+    if: ${{ inputs.env }} == "production"
     environment:
       name: staging
     # The type of runner that the job will run on
@@ -92,22 +74,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Compare two folders
         run: |
-          diff -r "envs-pending/production/web-app/" "envs/production/web-app/" > diff.txt
-          if [ $? -eq 1 ]
-          then
-              echo "Folders are different"
-              cat diff.txt
-              exit 1
-          else
-              echo "Folders are same"
-              exit 0
-          fi
+          diff -r "envs-pending/production/web-app/" "envs/production/web-app/"
       - name: Copy folder across
-        if: ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/production/web-app/*" "envs/production/web-app/"
       - uses: stefanzweifel/git-auto-commit-action@v4
-        if: ${{ inputs.env }} == "production"
         with:
           commit_message: ${{ inputs.messsage }}
