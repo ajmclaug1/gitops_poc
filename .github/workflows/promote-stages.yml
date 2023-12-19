@@ -1,6 +1,6 @@
 # Promote a GitOps application from one environment to the next
 
-name: Promote application
+name: Promote application stages
 
 # Controls when the workflow will run
 on:
