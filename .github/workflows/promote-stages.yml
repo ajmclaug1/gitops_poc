@@ -24,9 +24,9 @@ on:
 
 jobs:
   promote-devtest:
+    if: ${{ inputs.env }} == "devtest" || ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -68,7 +68,6 @@ jobs:
       name: staging
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
