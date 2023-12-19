@@ -36,7 +36,7 @@ jobs:
       - name: Copy folder across
         shell: bash
         run: |
-          mv "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
+          cp "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ inputs.messsage }}
@@ -56,7 +56,7 @@ jobs:
       - name: Copy folder across
         shell: bash
         run: |
-          mv "envs-pending/staging/web-app/" "envs/staging/web-app/"
+          cp "envs-pending/staging/web-app/" "envs/staging/web-app/"
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         with:
@@ -78,7 +78,7 @@ jobs:
       - name: Copy folder across
         shell: bash
         run: |
-          mv "envs-pending/production/web-app/" "envs/production/web-app/"
+          cp "envs-pending/production/web-app/" "envs/production/web-app/"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ inputs.messsage }}
