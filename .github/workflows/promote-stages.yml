@@ -31,7 +31,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Copy folder across
-        if: ${{ inputs.env }} == "devtest"
+        if: ${{ inputs.env }} == "devtest" || ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
         shell: bash
         run: |
           mv "envs-pending/devtest/web-app/* "envs/devtest/web-app/
