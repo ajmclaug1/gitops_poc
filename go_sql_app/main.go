@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -25,6 +26,7 @@ func main() {
 
 	// Setup HTTP server
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/insert", insert)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -58,4 +60,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if err := rows.Err(); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func insert(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		firstname := r.FormValue("name")
+		lastname := r.FormValue("lastname")
+		age, _ := strconv.Atoi(r.FormValue("age"))
+		address := r.FormValue("address")
+
+		_, err := db.Exec("INSERT INTO users(firstname, lastname, age, address) VALUES(?, ?, ?, ?)", firstname, lastname, age, address)
+		if err != nil {
+			fmt.Fprintf(w, "Data not successfully inserted into the table. Error: %s", err)
+			return
+		}
+
+		fmt.Fprintf(w, "Data successfully inserted into the table!")
+	}
+	http.Redirect(w, r, "/", 301)
 }
