@@ -30,9 +30,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Compare two folders
-        run: |
-          diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
+      # - name: Compare two folders
+      #   run: |
+      #     diff -r "envs-pending/devtest/web-app/" "envs/devtest/web-app/"
       - name: Copy folder across
         shell: bash
         run: |
@@ -50,9 +50,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Compare two folders
-        run: |
-          diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/"
+      # - name: Compare two folders
+      #   run: |
+      #     diff -r "envs-pending/staging/web-app/" "envs/staging/web-app/"
       - name: Copy folder across
         shell: bash
         run: |
@@ -72,9 +72,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Compare two folders
-        run: |
-          diff -r "envs-pending/production/web-app/" "envs/production/web-app/"
+      # - name: Compare two folders
+      #   run: |
+      #     diff -r "envs-pending/production/web-app/" "envs/production/web-app/"
       - name: Copy folder across
         shell: bash
         run: |
