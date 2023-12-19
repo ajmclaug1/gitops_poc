@@ -53,14 +53,14 @@ jobs:
         if: ${{ inputs.promote_container }}
         uses: canastro/copy-file-action@master
         with:
-          source: "envs/${{ inputs.source_env }}/web-app/web-app.yml"
-          target: "envs/${{ inputs.target_env }}/web-app/web-app.yml"
+          source: "envs/${{ inputs.source_env }}/web-app/web-app.yaml"
+          target: "envs/${{ inputs.target_env }}/web-app/web-app.yaml"
       - name: Copy settings
         if: ${{ inputs.promote_services }}
         uses: canastro/copy-file-action@master
         with:
-          source: "envs/${{ inputs.source_env }}/web-app/web-app-svc.yml"
-          target: "envs/${{ inputs.target_env }}/web-app/web-app-svc.yml"
+          source: "envs/${{ inputs.source_env }}/web-app/web-app-svc.yaml"
+          target: "envs/${{ inputs.target_env }}/web-app/web-app-svc.yaml"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ inputs.messsage }}
