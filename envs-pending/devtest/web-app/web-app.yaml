@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: webserver-simple
-          image: docker.io/anthonymclaughlin861/goexample:v3
+          image: docker.io/anthonymclaughlin861/goexample:v1
           ports:
             - containerPort: 8080
