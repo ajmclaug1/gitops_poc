@@ -8,5 +8,5 @@ spec:
     app: trivial-go-web-app
   ports:
     - protocol: TCP
-      port: 83
+      port: 81
       targetPort: 8080
