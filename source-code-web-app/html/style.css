@@ -1,0 +1,12 @@
+.app {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    float: left;
+}
+
+.app {
+    background: rgb(200, 0, 0);
+    border-radius: 25px;
+}
