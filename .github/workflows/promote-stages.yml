@@ -42,6 +42,7 @@ jobs:
           commit_message: ${{ inputs.messsage }}
 
   promote-staging:
+    needs: promote-devtest
     if: ${{ inputs.env }} == "staging" || ${{ inputs.env }} == "production"
     environment:
       name: staging
@@ -63,6 +64,7 @@ jobs:
           commit_message: ${{ inputs.messsage }}
 
   promote-production:
+    needs: [promote-devtest,promote-staging]
     if: ${{ inputs.env }} == "production"
     environment:
       name: staging
